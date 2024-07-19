@@ -1,0 +1,70 @@
+browser=chrome
+Website=https://superj.insightengine.in/welcome-screen
+
+	//main buttons.
+Signup=/html/body/div[2]/div/main/div/nav/div[2]/button[1]
+Login=/html/body/div[2]/div/main/div/nav/div[2]/button[2]
+Downloadsuperj=/html/body/div[2]/div/main/div/nav/div[2]/button[3]
+Getstarted=Get started → 
+Superj=SuperJ → 
+
+ //Login & Signup.
+Mobilenumber=//*[@id="phone"]
+Mobilenumber_Continue=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[3]/button
+OTP=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div
+OTP_Continue=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[2]/button
+resendOTP=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/p[2]/span
+Randommobilenumber=9898
+OTP_1=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div/input[1]
+OTP_2=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div/input[2]
+OTP_3=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div/input[3]
+OTP_4=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div/input[4]
+
+  //Validation - messages
+validOTP=Please enter a valid OTP
+ValidOTP_message=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/span
+IncorrectOTP=Incorrect OTP
+IncorrectOTP_message=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/span
+close_mobilescreen_popup=/html/body/div[2]/div/main/div/nav/div[3]/div/div[1]/button
+
+	//DID
+DIDFirst_screen=/html/body/div[2]/div/main/div/nav/div[4]/div/div
+DIDFirst_screen_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div/div[4]/button
+
+	//Referral screen.
+Referral_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div/div[2]/button[1]
+Have_Referral=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div/div[2]/button[2]	
+
+	//On-boarding.
+DOB=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/div/div/button
+DOB_Dropdown=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/div/div/div[3]
+DOB_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[2]/div
+
+Gender_Backbutton=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[1]/div
+Female=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/div/button[1]
+Male=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/div/button[2]	
+Gender_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[2]
+
+Location_Back=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[1]
+Location=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/form/div[1]/div/input
+Location_Dropdown=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/form/div[1]/ul
+Location_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[2]/div
+Location_Search=input[placeholder='Please select your city']
+Location_Dropdown_select=li[class="px-4 py-2 cursor-pointer hover:bg-[#6937D3] hover:text-white"]
+
+	//Coupon_Screen.
+Coupon_2=(//div[@class='SelectReward_coupon__kGICL  ' ])[1]
+Coupon_3=(//div[@class='SelectReward_coupon__kGICL  ' ])[2]
+Coupon_4=(//div[@class='SelectReward_coupon__kGICL  ' ])[3]
+Collect_Onboarding_coupons=/html/body/div[2]/div/main/div/nav/div[3]/div/div/div[2]/div/div/div[6]/button
+Onboarding_coupon_validation_message=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div[2]/div/div/div[6]/div/p
+Goforthecoupon=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div[2]/div/div/div[6]/button
+Please select 2 coupons to continue
+
+Start_your_journey=/html/body/div[2]/div/main/div/nav/div[3]/div/div/div[2]/div/div[4]
+startjourney=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div[2]/div/div[4]/button
+
+
+	//Notification.
+YES=/html/body/div[2]/div/main/div/nav/div[3]/div/div/div[2]/div/div[4]/button[1]
+NO=/html/body/div[2]/div/main/div/nav/div[3]/div/div/div[2]/div/div[4]/button[2]

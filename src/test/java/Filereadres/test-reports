@@ -1,0 +1,135 @@
+/Main Buttons//
+InsightEngine=Insight Engine
+Pricing=Pricing
+Resources=Resources
+SuperjApp=Super J App
+Login=/html/body/main/nav[1]/div[2]/div[2]/ul/li[1]
+Getstarted01=/html/body/main/nav[1]/div[2]/div[2]/ul/li[2]/button
+
+//Login//
+login01=/html/body/main/div/div[1]/div[2]/div/h1
+Loginemailtextinput=/html/body/main/div[2]/div[1]/div[2]/div/div[2]/div/input
+Loginotpbutton=/html/body/main/div[2]/div[1]/div[2]/div/div/div/input
+Loginsendcode=/html/body/main/div[2]/div[1]/div[2]/div/div[2]/button
+Logingetstartednow=Get Started Now
+Logintostart=/html/body/main/div[2]/div[1]/div[2]/div/div[2]/p/button
+
+LoginOTP=input[id='otp']
+Loginotpsubmit=/html/body/main/div/div[1]/div[2]/div/div/button
+Loginotpresend=/html/body/main/div/div[1]/div[2]/div/div/p/div
+loginotperrormessage=/html/body/main/div/div[1]/div[2]/div/div/div/p
+
+emailinvalidmessage=/html/body/main/div/div[1]/div[2]/div/div[2]/div/p
+exictingemail=/html/body/main/div/div[1]/div[2]/div/div/div/p
+You have a registered account! Just Log in
+Please enter a valid code
+
+//Signup//
+Enteryouremail=Enter your Email
+Signup01=/html/body/main/div/div[1]/div[2]/div/h1
+Useryouremail=/html/body/main/div/div[1]/div[2]/div/div[2]/button
+Signupemailtextfiled=(//input[@id='email'])[2]
+signupsendcode=/html/body/main/div/div[1]/div[2]/div/div/button
+signup-Email-errormessage=/html/body/main/div[2]/div[1]/div[2]/div/div/div/p
+
+signupotp=/html/body/main/div[2]/div[1]/div[2]/div/div/div/input
+signupsubmit=/html/body/main/div/div[1]/div[2]/div/div/button
+signupresendotp=/html/body/main/div/div[1]/div[2]/div/div/p/div
+signupotperrormessage=/html/body/main/div[2]/div[1]/div[2]/div/div/div/p
+
+signup-login=/html/body/main/div/div[1]/div[2]/div/div[2]/p/a/span
+
+//Existing User//
+existinguser=/html/body/main/div[2]/div[1]/div[2]/div/div/div/p
+You have a registered account! Just Log in
+
+//Login New Email ID//
+new-email=/html/body/main/div[2]/div[1]/div[2]/div/div[2]/div/p
+This Email is new to us. Please Sign Up to get started!
+
+//Signup Welcome//
+welcome=/html/body/main/div/div[1]/div/h1
+Enterinsightengine=/html/body/main/div/div[1]/div/button
+
+//Choose Campaign//
+Brand-tracking=/html/body/main/div[2]/div/div[1]
+Consumer-Profiling=/html/body/main/div[2]/div/div[2]
+Creative-Testing=/html/body/main/div[2]/div/div[3]
+Market-analysis=/html/body/main/div[2]/div/div[4]
+New-product-testing=/html/body/main/div[2]/div/div[5]
+Price-benchmark=/html/body/main/div[2]/div/div[6]
+Choosecampaign-nextbutton=/html/body/main/div[2]/div[2]/button
+
+//Audience//
+Location=/html/body/main/div/div[3]/div/div[2]/div[1]/div[2]/div/div[1]/div[2]
+Location1=(//div[@class='css-1nmdiq5-menu']
+locati=(//div[@class=' css-19bb58m'])[1]
+Location-errormessage=/html/body/main/div/div[3]/div/div[2]/div[1]/p
+Please select a location
+Age-minimum=/html/body/main/div/div[3]/div/div[2]/div[2]/div/input[1]
+Age-maximum=/html/body/main/div/div[3]/div/div[2]/div[2]/div/input[2]
+Age-errormessage=/html/body/main/div/div[3]/div/div[2]/div[3]/p[2]
+Please enter a valid age
+Gender=/html/body/main/div/div[3]/div/div[2]/div[4]/div/div/div[1]/div[1]
+Audience-Nextbutton=/html/body/main/div/div[4]/div/button[2]
+Audience-backbutton=/html/body/main/div/div[4]/div/button[1]
+
+//Audience Popup//
+Consumercount=/html/body/main/div[2]/div/div[2]/div[1]/div/input[1]
+Consumer-submitbutton=/html/body/main/div[2]/div/div[2]/div[3]/button
+Consumer-errormessage=/html/body/main/div[2]/div/div[2]/div[1]/p[1]
+Please enter a number greater than 0
+
+//Survey Screen//
+surveytype-backbutton=/html/body/main/div/footer/div/button[1]
+surveytype-nextbutton=/html/body/main/div/footer/div/button[2]
+
+//Demo//
+Schedule-Demo=(//button[@class='ChoiceCard_button__KTgxF'])[1]
+Connectan-expert=(//button[@class='ChoiceCard_button__KTgxF'])[2]
+
+//Schedule Demo//
+Demo-email-textfield=input[placeholder='Email ID']
+Demo-email-confirm=button[fdprocessedid='q5mf8']
+Demo-email-error-message=/html/body/main/div/div[2]/div/div/div[1]/div[1]/p
+This Email is invalid. Try again!
+
+Demo-Mobilenumber-textfiled=input[placeholder='Enter Your Phone Number']
+Demo-Mobilenumber-confirm=button[fdprocessedid='5xfvah']
+Demo-mobilenumber-errormessage=/html/body/main/div/div[2]/div/div/div[3]/div[1]/p
+This Phone is invalid. Try again!
+
+//Connect an Expert//
+connect-mobilenumber-textfield=input[placeholder='Enter Your Phone Number']
+connect-mobilenumber-submit=button[fdprocessedid='zl9n39']
+Connect-mobilenumber-error-message=/html/body/main/div/div[2]/div/div/div[2]/div/div/p
+This Phone number is invalid. Try again!
+
+//Dashboard//
+Dashboardmainscreen=/html/body/main/div[1]/div[1]
+
+//Filter//
+clickonfilter=/html/body/main/div[1]/div[4]/div[1]/div[2]
+ALL=/html/body/main/div[1]/div[4]/div[2]/ul/li[1]
+Completed=/html/body/main/div[1]/div[4]/div[2]/ul/li[1]
+Live=/html/body/main/div[1]/div[4]/div[2]/ul/li[2]
+Scheduled=/html/body/main/div[1]/div[4]/div[2]/ul/li[3]
+
+//Survey Cards//
+Totalsurveycards=(//div[@class='stats_cardContainer__Q9gA_'])
+surveycards=(//div[@class='stats_cardContainer__Q9gA_'])[2]
+Surveytitle=(//div[@class='survey_surveyTitle___uxWy'])
+Allsurveyscardsname=(//div[@class='stats_survey-title__l1Cev truncate-multiline line-clamp-1'])
+
+//Overview//
+Overview=(//div[@class='reports_overviewContainer__JCtPv'])
+
+//Survey//
+surveycardresponse=(//div[@style='margin-left: 16px;'])[1]
+surveycardquestion=(//div[@style='margin-bottom: 44px;'])
+clickonlocation=(//img[@alt='down-arrow'])
+
+//Survey Location//
+ClickonDropdown=/html/body/main/div[1]/div[4]/div[1]/div[2]
+Alldropdownlist=div[class='dropdown-container question_dropdown__QwjON']
+Alldropdownlist01=(//ul[@class='question_dropdownList__h5Po6'])
