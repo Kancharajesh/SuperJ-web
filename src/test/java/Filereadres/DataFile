@@ -1,70 +1,225 @@
 browser=chrome
-Website=https://superj.insightengine.in/welcome-screen
+Website=http://uat.irctc.co.in/
+
+IRCTCURl1=https://www.air.irctc.co.in/
+SuperJ_URL=https://irctc.superj.app/Welcome
+Dev_URL=https://dev.superj.app/Welcome
+SUPERJ=https://superj.app/Welcome
+
+
+MainBanner=/html/body/app-root/app-index/div[4]/div/div[2]/div/div/ul/li[1]
+TOPBanner=//a[@class='deskContent prt']
+
+Login=(//button[@class="Navbar_link__9Nm3x"])
+
+IRCTCLogin=(//li[@class='nav-item'])[2]
+GuestUserlogin=(//li[@class='nav-item'])[3]
+close_popup=(//button[@aria-label='Close'])[4]
+
+	// IRCTCuser Login.
+Email=(//input[@id='loginuseridUser'])
+Password=(//input[@name='password'])[1]
+Login=(//button[@type='submit'])[2]
+
+ //Guest user login
+Email=(//input[@name='emailLogin'])[1]
+mobilenumber=(//input[@name='mobileNo'])[1]
+Signin=(//button[@type='submit'])[3]
+
+
+Website_Dev=http://dev.superj.app
+Website_Staging=http://uat.superj.app
+Website_Prod=http://superj.app
+
 
 	//main buttons.
-Signup=/html/body/div[2]/div/main/div/nav/div[2]/button[1]
-Login=/html/body/div[2]/div/main/div/nav/div[2]/button[2]
-Downloadsuperj=/html/body/div[2]/div/main/div/nav/div[2]/button[3]
-Getstarted=Get started → 
-Superj=SuperJ → 
+Login=//button[@class='Navbar_link__9Nm3x']
+Downloadsuperj=/html/body/div/div/main/div/nav/div[2]/button[2]
+EntersuperJ=/html/body/div/div/main/div/div/div[1]/button
+Superj=/html/body/div/div/main/div/div/div[1]/div[2]/div 
 
- //Login & Signup.
-Mobilenumber=//*[@id="phone"]
-Mobilenumber_Continue=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[3]/button
+ //Login.
+Mobilenumber=//input[@placeholder='Phone Number']
+Mobilenumber_Continue=(//button[@type="submit"])
 OTP=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div
-OTP_Continue=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[2]/button
-resendOTP=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/p[2]/span
+OTP_Continue=//button[@type='submit']
+resendOTP=(//span[@class="SignupModal_sendAgainText__LbfQ_"])
+OTP_sent_successfully=OTP sent successfully
 Randommobilenumber=9898
-OTP_1=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div/input[1]
-OTP_2=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div/input[2]
-OTP_3=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div/input[3]
-OTP_4=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/div/input[4]
+OTP_1=(//input[@class='SignupModal_otpInput__NRjG9'])[1]
+OTP_2=(//input[@class='SignupModal_otpInput__NRjG9'])[2]
+OTP_3=(//input[@class='SignupModal_otpInput__NRjG9'])[3]
+OTP_4=(//input[@class='SignupModal_otpInput__NRjG9'])[4]
+OTP_5=(//input[@class='SignupModal_otpInput__NRjG9'])[5]
+OTP_6=(//input[@class='SignupModal_otpInput__NRjG9'])[6]
+
+Close_Mobilenumber_popup=//img[@alt='close login superj']
 
   //Validation - messages
-validOTP=Please enter a valid OTP
-ValidOTP_message=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/span
 IncorrectOTP=Incorrect OTP
-IncorrectOTP_message=/html/body/div[2]/div/main/div/nav/div[3]/div/div[2]/form/div[1]/span
+IncorrectOTP_message=(//div[@class='SignupModal_otpContainer__iDo2w'])[1]
+inCorretOTP_mess=(//span[@class="SignupModal_errorTextOtp__7jrQU"])
 close_mobilescreen_popup=/html/body/div[2]/div/main/div/nav/div[3]/div/div[1]/button
 
-	//DID
-DIDFirst_screen=/html/body/div[2]/div/main/div/nav/div[4]/div/div
-DIDFirst_screen_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div/div[4]/button
 
-	//Referral screen.
-Referral_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div/div[2]/button[1]
-Have_Referral=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div/div[2]/button[2]	
+	//On-boarding & Gender.
+Click_Gender=(//img[@alt='Search'])[1]
+Male=(//div[@class='hover:bg-[#ECF9F0] ml-[20px] mr-[12px] pl-[16px] pt-[12px] pb-[12px]'])[1]
+Female=(//div[@class='hover:bg-[#ECF9F0] ml-[20px] mr-[12px] pl-[16px] pt-[12px] pb-[12px]'])[2]
 
-	//On-boarding.
-DOB=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/div/div/button
-DOB_Dropdown=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/div/div/div[3]
-DOB_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[2]/div
+ 
+   //Year Of Birth.
+Click_Bornyear=(//img[@alt='Search'])[2]  
+DOB=(//div[@class=' h-full flex items-center pl-3}'])[2]
+DOB_Dropdown=(//div[@aria-label='grid'])[2]
+2002=(//li[@class='relative cursor-pointer h-[48px]'])[3]
 
-Gender_Backbutton=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[1]/div
-Female=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/div/button[1]
-Male=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/div/button[2]	
-Gender_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[2]
-
-Location_Back=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[1]
-Location=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/form/div[1]/div/input
-Location_Dropdown=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[1]/div/form/div[1]/ul
-Location_Next=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div/div[2]/button[2]/div
-Location_Search=input[placeholder='Please select your city']
-Location_Dropdown_select=li[class="px-4 py-2 cursor-pointer hover:bg-[#6937D3] hover:text-white"]
+	//Location.
+Click_Location=(//img[@alt='Search'])[3]	
+Location=(//div[@class=' h-full flex items-center pl-3}'])[3]
+Location_Dropdown=(//nav[@class='flex flex-col items-start relative'])[3]
+Location_Search=//input[@placeholder='Please select your city']
+Adilabad=(//li[@class='relative cursor-pointer h-[48px]'])[11]
+Adilabad1=(//li[@class='relative cursor-pointer h-[48px]'])[2]
+Location_Dropdown_select=(//div[@aria-label='grid'])[3]
 
 	//Coupon_Screen.
-Coupon_2=(//div[@class='SelectReward_coupon__kGICL  ' ])[1]
-Coupon_3=(//div[@class='SelectReward_coupon__kGICL  ' ])[2]
-Coupon_4=(//div[@class='SelectReward_coupon__kGICL  ' ])[3]
-Collect_Onboarding_coupons=/html/body/div[2]/div/main/div/nav/div[3]/div/div/div[2]/div/div/div[6]/button
-Onboarding_coupon_validation_message=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div[2]/div/div/div[6]/div/p
-Goforthecoupon=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div[2]/div/div/div[6]/button
+Coupon_1=(//div[@class='SelectReward_coupon__kGICL  '])[1]
+Coupon_2=(//div[@class='SelectReward_coupon__kGICL  '])[2]
+Coupon_3=(//div[@class='SelectReward_coupon__kGICL  '])[3]
+Coupon_4=(//div[@class='SelectReward_coupon__kGICL  '])[4]
+Collect_Onboarding_coupons=(//button[@class='SelectReward_collectButton1__3Az9X SelectReward_activeButton__lFjcp'])
+Collect_Onboarding_coupons_not=(//button[@class='SelectReward_collectButton1__3Az9X '])
+Onboarding_coupon_validation_message=(//p[@class='SelectReward_errorText__haa9u'])
+Earn_more_rewards!=(//button[@class='SelectReward_collectButton2__RVe97'])
 Please select 2 coupons to continue
+On_boarding_reward_sucess_coupons=//div[@class='OnboardingSuccess_container__I738M']
 
 Start_your_journey=/html/body/div[2]/div/main/div/nav/div[3]/div/div/div[2]/div/div[4]
 startjourney=/html/body/div[2]/div/main/div/nav/div[4]/div/div/div[2]/div/div[4]/button
 
 
+
+  	//Side-bar Home screen.
+Side_Bar=(//div[@class="Sidebar_sidebar__v6daX"])
+Home=//img[@alt='Home']
+Wallet=//img[@alt='Wallet']
+Profile=//img[@alt='Profile']
+Downloadtheapp=//div[@class='Sidebar_downloadButtonContent__PswE9']
+Downloadtheapp_popup=//div[@class='Scanner_container__e08rA']
+
+
+
+Surveyards=/html/body/div[1]/div/main/div[1]/div[2]/div[2]
+survey_headings=(//h1[@class='SurveyCard_title__rpaFe'])
+Survey_cards=(//div[@class='SurveyCard_cardContainer__9fG_1'])
+Survey_card_last=(//div[@class='SurveyCard_cardContainer__9fG_1'])[12]
+
+Survey_Preview_start_survey=(//button[@class='preview_startSurveyButton__oAeLD'])
+preview_close=(//img[@alt='SuperJ survey']_
+answer_survey=(//div[@class='McqComponent_mcqBox__9GpN3 McqComponent_selected__iak2E'])
+
+
+
+	//Wallet
+Cashout=(//button[@class='CashBalance_cashoutButton__o_gNU'])
+CashBalance=(//p[@class='CashBalance_balanceText__yQJ_O'])
+Cashout_cashbalance_info=(//div[@class='CashBalance_container__NaEu_ undefined'])
+Cashout_cashbalance_Backbutton=(//div[@class='flex items-center gap-2 mb-[24px] mt-[46px] cursor-pointer'])
+Giftcards=(//div[@class='GiftCardsComponent_touchable__H6mpL GiftCardsComponent_notRedeemableButton__KEhJl'])
+Clickon_Giftcards=//div[@class='GiftCardsComponent_giftCard__v8zqF clickable-effect GiftCardsComponent_notRedeemable__AyHGH']
+
+Recent_coupons1=(//p[@class='TabCouponsGift_navItem__g5DRD '])
+Recent_coupons=(//div[@class='RecentCoupons_coupon__zqqw4 '])
+Recent_coupons_allcards=(//div[@class='RecentCoupons_couponsGrid__7hCa3'])
+Recent_coupons_printthe_Brandname=(//p[@class='RecentCoupons_couponBrandName__1H_qT'])
+
+
+My_Giftcards=(//p[@class='TabCouponsGift_navItem__g5DRD TabCouponsGift_active__Yk9jh'])
+
+
+	//Profile.
+Print_the_whole_text=(//div[@style='margin-left: 310px; margin-right: 254px; margin-top: 48px;'])
+Learn_more_about_DID=(//button[@class='text-[16px] font-semibold text-[#6937D3]'])[1]
+Copy_DID=(//p[@class='DidPopup_didText__7mkHQ'])
+DID_back=(//img[@alt='backarrow'])
+
+	//Refer a friend
+Click_refer=(//img[@alt='boy'])
+DID_back=(//img[@alt='backarrow'])
+verify_details=(//div[@class='ReferDesktop_links__G_beX'])
+
+	//Edit_Profile.
+Edit_profile=(//img[@alt='edit'])
+
+	//Privacy & Policy
+Click_privacypolicy=(//img[@alt='policy'])
+
+	//Help & support
+Help_support=(//p[@class='text-[16px] font-semibold text-[#6937D3]'])[2]
+Back_to_Profile01=(//img[@alt='back button'])
+Help_support_ContactUs=(//button[@class='HelpAndSupport_contactButton__AOUj0'])
+Help_support_TermsCondition=(//button[@class='HelpAndSupport_termsButton__N0071'])
+
+	
+	//Transaction
+view_all=//img[@alt='all']
+Transaction_Coupons=//div[@class='Coupons_couponsMainContainer__ZsN7l']
+(//p[@class='transaction-history-desktop_navItem__NFbte transaction-history-desktop_active__ZjDx_'])
+Transaction_Cash=(//p[@class='transaction-history-desktop_navItem__NFbte '])
+Printthe_Transaction_coupons=(//div[@class='Coupons_mainPage__qGQBV'])
+printthe_Transcation_cash=(//div[@class='transaction-history-desktop_mainContent__D70tM'])
+Back_to_Profile=(//img[@alt='back icon'])
+Profile_transaction=//div[@class='w-[304px] h-[97px] bg-white border border-[#E9F0F3] rounded-[16px] p-[18px_16px_18px_20px] relative']
+
+
+	//Logout
+Click_logout=(//button[@style="width: 304px; height: 48px; border: 1px solid rgb(235, 224, 224); background-color: rgb(243, 233, 233); border-radius: 16px; font-size: 16px; color: rgb(187, 112, 112); font-weight: 600; margin-bottom: 82px;"])
+yes_illback=(//button[@class='logout_deleteButton__hVHfW'])
+Logout_no=(//button[@class='logout_cancelButton__EPJrj'])
+
+
+
+
+	//Answer Types
+//Multiple selection_ MCQ
+survey_answer_options_1=(//div[@class='McqComponent_mcqBox__9GpN3'])
+survey_answer_options_2=(//div[@class='McqComponent_mcqBox__9GpN3'])[2]
+survey_answer_options_3=(//div[@class='McqComponent_mcqBox__9GpN3'])[3]
+survey_answer_options_4=(//div[@class='McqComponent_mcqBox__9GpN3'])[4]
+
+Survey_next_button=(//button[@class="clickable-effect"])
+
+
+	//Survey_collect_Coupons
+selectcoupon_1=//div[@class='CouponSelectPopup_coupon__MtC3y  ']
+Earn_more_rewards=//button[@class='CouponSelectPopup_collectButton1__A3lXd CouponSelectPopup_activeButton__utcV5']
+
+celebration_screen=//div[@class='RewardSuccessDesktop_coupon__Nlxpp']
+Earn_more_rewards_1=//div[@class='RewardSuccessDesktop_earnMoreRewardsButton__BkPhf']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//Notification.
 YES=/html/body/div[2]/div/main/div/nav/div[3]/div/div/div[2]/div/div[4]/button[1]
 NO=/html/body/div[2]/div/main/div/nav/div[3]/div/div/div[2]/div/div[4]/button[2]
+
+//Home screen-SuperJ text.
+Homepagetext=/html/body/div[1]/div/main/div/div/div/div/div/div/div[1]/h1

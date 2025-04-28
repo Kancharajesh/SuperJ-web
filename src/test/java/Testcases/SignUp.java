@@ -1,379 +1,436 @@
 package Testcases;
 
-import static org.testng.Assert.assertEquals;
-
+import org.testng.annotations.Test;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.time.Year;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
-import org.testng.internal.BaseTestMethod;
-import com.aventstack.extentreports.Status;
 import Baseclass.Basetest;
-import io.netty.handler.timeout.TimeoutException;
-
-import org.testng.annotations.Listeners;
 
 @Listeners(TestListener.class)
 public class SignUp extends Basetest {
 
-	private static final FluentWait<WebDriver> wait = null;
-
-	// Random mobile generator.
-	public static String Random_MobileNumber() throws Exception {
+	// Generate a random 10-digit mobile number
+	public static String randomMobileNumber() {
 		Random generator = new Random();
 		generator.setSeed(System.currentTimeMillis());
-		int num1 = generator.nextInt(999) + 900;
-		int num2 = generator.nextInt(9999999) + 1000000;
-		return "99" + num1 + num2;
+		int num1 = generator.nextInt(900) + 100; // Ensures the first 3 digits are between 100 and 999
+		int num2 = generator.nextInt(9000000) + 1000000; // Ensures the next 7 digits are between 1000000 and 9999999
+		return "99" + num1 + num2; // Always start with '99'
 	}
-	
-	public static String ExcitingMobileNumber() {
-	    Random generator = new Random();
-	    generator.setSeed(System.currentTimeMillis());
-	    int num1 = generator.nextInt(99999) + 10000;
-	    int num2 = generator.nextInt(99999) + 10000;
 
-	    return "99" + num1 + num2;
-	   }
+	// Generate a random 6-digit OTP
+	public static String generateRandomOTP() {
+		Random rand = new Random();
+		int otp = rand.nextInt(900000) + 100000; // Generate random OTP between 100000 and 999999
+		return String.valueOf(otp);
+	}
 
-	// OTP.
-	private void enterOTP(String otp) throws Exception {
+	// Method to enter OTP into input fields
+	public void enterOTP(String otp) throws Exception {
 		for (int i = 0; i < otp.length(); i++) {
 			String locator = prop.getProperty("OTP_" + (i + 1));
 			driver.findElement(By.xpath(locator)).sendKeys(Character.toString(otp.charAt(i)));
 		}
 	}
 
-	@Test(priority = 1, enabled = true, retryAnalyzer = Retry.class)
-	public void Valid_mobileNumber() throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
+	// Method to check if the homepage text is displayed
+	public boolean isHomePageTextDisplayed() {
+		try {
+			return driver.findElement(By.xpath(prop.getProperty("Homepagetext"))).isDisplayed();
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	// Clear OTP input fields
+	public void clearOTPFields() {
+		for (int i = 0; i < 6; i++) {
+			String locator = prop.getProperty("OTP_" + (i + 1));
+			WebElement otpField = driver.findElement(By.xpath(locator));
+			otpField.clear();
+		}
+	}
+
+	private void Login_New_number() throws Exception {
+
+		driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+		String mobileNumber = randomMobileNumber();
+		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(mobileNumber);
 		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
 
-		String otp = "2020";
+		// Enter OTP
+		String otp = "777777";
 		enterOTP(otp);
-
 		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+		Thread.sleep(2500);
 
-		WebElement isDIDDisplayed = driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen")));
-		Assert.assertTrue(isDIDDisplayed.isDisplayed(),
-				"DIDFirst_screen is not displayed after entering OTP and clicking Continue.");
+	}
 
+	private void TOP_Banner() throws InterruptedException {
+		Thread.sleep(2500);
+		// Click on the TOPBanner
+		driver.findElement(By.xpath(insight.getProperty("TOPBanner"))).click();
+		Thread.sleep(3500);
+
+		// Store the current window handle (original tab)
+		String originalTab = driver.getWindowHandle();
+		Set<String> allTabs = driver.getWindowHandles();
+
+		// Switch to the newly opened tab (other than the original one)
+		for (String tab : allTabs) {
+			if (!tab.equals(originalTab)) {
+				driver.switchTo().window(tab);
+				break;
+			}
+		}
+	}
+
+	@Test(priority = 1, enabled = true, retryAnalyzer = Retry.class)
+	public void verifyMobileOTP() throws Exception {
+		try {
+
+			TOP_Banner();
+
+			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+
+			String mobileNumber = randomMobileNumber();
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(mobileNumber);
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+
+			String otp = "777777";
+			enterOTP(otp);
+
+//			driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+//			Thread.sleep(2500);
+//
+//			WebElement homePageTextElement = driver.findElement(By.xpath(prop.getProperty("Homepagetext")));
+//			Assert.assertTrue(homePageTextElement.isDisplayed(), "Homepage text is not displayed");
+//			String homePageText = homePageTextElement.getText();
+//			System.out.println("Homepage text: " + homePageText);
+
+			System.out.println("SignUp.verifyMobileOTP()");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Test(priority = 2, enabled = true, retryAnalyzer = Retry.class)
-	public void Ons() throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
+	public void verifyMobileContinueButtonHighlight() throws Exception {
+		try {
 
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
+			TOP_Banner();
 
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+			String mobileNumber = randomMobileNumber();
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(mobileNumber);
+			WebElement continueButton = driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue")));
+			Assert.assertTrue(continueButton.isEnabled(), "Mobilenumber Continue button is not enabled");
 
-		String otp = "2020";
-		enterOTP(otp);
+			String backgroundColor = continueButton.getCssValue("background-color");
+			System.out.println("Continue button background color: " + backgroundColor);
 
-		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+			String borderColor = continueButton.getCssValue("border-color");
+			System.out.println("Continue button border color: " + borderColor);
 
-		WebElement isDIDDisplayed = driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen")));
-		Assert.assertTrue(isDIDDisplayed.isDisplayed(),
-				"DIDFirst_screen is not displayed after entering OTP and clicking Continue.");
+			continueButton.click();
 
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen_Next"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("Referral_Next"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("DOB"))).click();
-		Thread.sleep(2000); // Waiting for the dropdown to appear
-
-		WebElement option2000 = driver
-				.findElement(By.xpath("//div[@class='dropdown-option' and contains(text(), '2000')]"));
-		option2000.click();
-
-		Thread.sleep(5000);
-		driver.findElement(By.xpath(prop.getProperty("DOB_Next"))).click();
-		Thread.sleep(5000);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Test(priority = 3, enabled = true, retryAnalyzer = Retry.class)
-	public void Withoutadding_OTP() throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+	public void invalidOTPTest() throws Exception {
+		try {
 
-		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+			TOP_Banner();
 
-		WebElement e = driver.findElement(By.xpath(prop.getProperty("ValidOTP_message")));
-		String actualElementText = e.getText();
-		String expectedElementText = "Please enter a valid OTP";
-		Assert.assertEquals(actualElementText, expectedElementText, "Expected and Actual both are same");
+			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+			String mobileNumber = randomMobileNumber();
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(mobileNumber);
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
 
+			String invalidOtp = "200020"; // Set invalid OTP
+			enterOTP(invalidOtp);
+
+			driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+			Thread.sleep(2000);
+
+			WebElement errorMessage = driver.findElement(By.xpath(prop.getProperty("IncorrectOTP_message")));
+			String actualText = errorMessage.getText();
+			String expectedText = "Incorrect OTP";
+			System.out.println("Actual text: " + actualText);
+			Assert.assertEquals(actualText, expectedText, "OTP error message does not match");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
-	@Test(priority = 4, enabled = true, retryAnalyzer = Retry.class)
-	public void Invalid_OTP() throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+	@Test(priority = 4, enabled = false, retryAnalyzer = Retry.class)
+	public void resendOTPTest() throws Exception {
+		try {
 
-		String InvalidOtp = "2000";
-		enterOTP(InvalidOtp);
+			TOP_Banner();
 
-		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+			String mobileNumber = randomMobileNumber();
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(mobileNumber);
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
 
-		WebElement e = driver.findElement(By.xpath(prop.getProperty("IncorrectOTP_message")));
-		String actualElementText = e.getText();
-		String expectedElementText = "Incorrect OTP";
-		Assert.assertEquals(actualElementText, expectedElementText, "Expected and Actual both are same");
+			// Click the resend OTP button
+			WebElement resendOtpElement = driver.findElement(By.xpath(prop.getProperty("resendOTP")));
+			resendOtpElement.click();
 
+			Thread.sleep(2000);
+			String actualText = resendOtpElement.getText();
+			String expectedText = "OTP sent successfully";
+			System.out.println("Actual text: " + actualText);
+			Assert.assertEquals(actualText, expectedText, "Resend OTP message does not match");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Test(priority = 5, enabled = true, retryAnalyzer = Retry.class)
-	public void EnterOTP_Continue_Multipletimes() throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+	public void testEnterOTPContinueMultipleTimes() throws Exception {
+		try {
 
-		String InvalidOtp = "2002";
-		enterOTP(InvalidOtp);
+			TOP_Banner();
 
-		int numberOfClicks = 5;
-		for (int click = 0; click < numberOfClicks; click++) {
-			driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
-			Thread.sleep(800);
+			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+			String mobileNumber = randomMobileNumber();
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(mobileNumber);
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+
+			String invalidOtp = "202020";
+			enterOTP(invalidOtp);
+
+			int attempts = 5;
+			for (int i = 0; i < attempts; i++) {
+				driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+				Thread.sleep(800);
+			}
+
+			WebElement errorMessage = driver.findElement(By.xpath(prop.getProperty("IncorrectOTP_message")));
+			String actualText = errorMessage.getText();
+			String expectedText = "Incorrect OTP";
+			System.out.println("Actual text: " + actualText);
+			Assert.assertEquals(actualText, expectedText,
+					"Error message does not match after multiple OTP submissions");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
-
-		WebElement e = driver.findElement(By.xpath(prop.getProperty("IncorrectOTP_message")));
-		String actualElementText = e.getText();
-		String expectedElementText = "Incorrect OTP";
-		Assert.assertEquals(actualElementText, expectedElementText, "Expected and Actual both are same");
 	}
 
 	@Test(priority = 6, enabled = true, retryAnalyzer = Retry.class)
-	public void MobileNumber_input_clear() throws IOException, InterruptedException {
+	public void testMobileNumberInputClear() throws Exception {
+		try {
+			TOP_Banner();
 
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		WebElement mobileNumberField = driver.findElement(By.xpath(prop.getProperty("Mobilenumber")));
-		mobileNumberField.sendKeys("6281674691");
+			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+			WebElement mobileNumberField = driver.findElement(By.xpath(prop.getProperty("Mobilenumber")));
+			mobileNumberField.sendKeys("6281674691");
+			Thread.sleep(2000);
 
-		driver.findElement(By.xpath(prop.getProperty("close_mobilescreen_popup"))).click();
-		Thread.sleep(2000);
+			driver.findElement(By.xpath(prop.getProperty("Close_Mobilenumber_popup"))).click();
+			Thread.sleep(2000);
 
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-//		mobileNumberField = driver.findElement(By.xpath(prop.getProperty("Mobilenumber")));
-		String actualMobileNumber = mobileNumberField.getAttribute("value");
-		if (!actualMobileNumber.isEmpty()) {
-			mobileNumberField.clear();
-		}
+			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+			mobileNumberField = driver.findElement(By.xpath(prop.getProperty("Mobilenumber")));
+			String actualMobileNumber = mobileNumberField.getAttribute("value");
 
-		actualMobileNumber = mobileNumberField.getAttribute("value");
-		Assert.assertEquals(actualMobileNumber, "", "Mobile number field is not empty after clearing.");
-	}
+			if (!actualMobileNumber.isEmpty()) {
+				mobileNumberField.clear();
+			}
 
-	@Test(enabled = false)
-	public void Mobilenumber_clickmultipletimes() throws Exception {
+			Assert.assertEquals(mobileNumberField.getAttribute("value"), "",
+					"Mobile number field is not empty after clearing.");
 
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
-
-		int numberOfClicks = 5;
-		for (int i = 0; i < numberOfClicks; i++) {
-			driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
 	@Test(priority = 7, enabled = true, retryAnalyzer = Retry.class)
-	public void Fullflow() throws Exception {
-
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
-
-		String Otp = "2020";
-		enterOTP(Otp);
-
-		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen")));
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen_Next"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("Referral_Next"))).click();
-		driver.findElement(By.xpath(prop.getProperty("DOB"))).click();
-		Thread.sleep(2000);
-		WebElement option2000 = driver
-				.findElement(By.xpath("//div[@class='dropdown-option' and contains(text(), '1985')]"));
-		option2000.click();
-		driver.findElement(By.xpath(prop.getProperty("DOB_Next"))).click();
-		Thread.sleep(2000);
-
-		driver.findElement(By.xpath(prop.getProperty("Male"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("Gender_Next"))).click();
-		driver.findElement(By.xpath(prop.getProperty("Location"))).click();
-		WebElement dropdown = driver.findElement(By.xpath(prop.getProperty("Location")));
-		WebElement optionHyderabad = dropdown.findElement(By.xpath("//li[contains(text(), 'Hyderabad')]"));
-		optionHyderabad.click();
-
-		Thread.sleep(3000);
-		driver.findElement(By.xpath(prop.getProperty("Location_Next"))).click();
-
-		Thread.sleep(4000);
-		driver.findElement(By.xpath(prop.getProperty("Coupon_2"))).click();
-		driver.findElement(By.xpath(prop.getProperty("Coupon_3"))).click();
-		Thread.sleep(3000);
-		driver.findElement(By.xpath(prop.getProperty("Goforthecoupon"))).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath(prop.getProperty("startjourney"))).click();
-		Thread.sleep(5000);
-	}
-
-	@Test(priority = 8, enabled = true, retryAnalyzer = Retry.class)
-	public void Selected_value() throws Exception {
-
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
-
-		String Otp = "2020";
-		enterOTP(Otp);
-
-		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen")));
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen_Next"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("Referral_Next"))).click();
-		driver.findElement(By.xpath(prop.getProperty("DOB"))).click();
-		Thread.sleep(2000);
-		WebElement option2000 = driver
-				.findElement(By.xpath("//div[@class='dropdown-option' and contains(text(), '2000')]"));
-		option2000.click();
-		driver.findElement(By.xpath(prop.getProperty("DOB_Next"))).click();
-		Thread.sleep(2000);
-
-		driver.findElement(By.xpath(prop.getProperty("Gender_Backbutton"))).click();
-
-		String selectedYearXPath = "//div[@class='dropdown-selected' and contains(text(), '2000')]";
-		Boolean isSelectedYearDisplayed = driver.findElement(By.xpath(selectedYearXPath)).isDisplayed();
-		if (isSelectedYearDisplayed) {
-			System.out.println("PASS: The previously selected year is displayed.");
-		} else {
-			System.out.println("FAIL: The previously selected year is not displayed.");
-		}
-		Thread.sleep(5000);
-	}
-
-	@Test(priority = 9, retryAnalyzer = Retry.class, enabled = false)
-	public void refresh() throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
-
-		String Otp = "2020";
-		enterOTP(Otp);
-
-		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen")));
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen_Next"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("Referral_Next"))).click();
-		driver.findElement(By.xpath(prop.getProperty("DOB"))).click();
-		Thread.sleep(2000);
-		WebElement option1985 = driver
-				.findElement(By.xpath("//div[@class='dropdown-option' and contains(text(), '1985')]"));
-		option1985.click();
-		driver.findElement(By.xpath(prop.getProperty("DOB_Next"))).click();
-		Thread.sleep(2000);
-
-		driver.navigate().refresh();
-		Thread.sleep(2000);
-
-		boolean isButtonDisplayed = false;
+	public void testOTPRefresh() throws Exception {
 		try {
-			isButtonDisplayed = driver.findElement(By.xpath(prop.getProperty("Gender_Backbutton"))).isDisplayed();
-		} catch (NoSuchElementException | TimeoutException e) {
+
+			TOP_Banner();
+
+			Login_New_number();
+
+//			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+//			String mobileNumber = randomMobileNumber();
+//			driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(mobileNumber);
+//			driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+//
+//			String validOtp = "777777";
+//			enterOTP(validOtp);
+//			driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+//			Thread.sleep(2000);
+
+			WebElement homepageTextElement = driver.findElement(By.xpath(prop.getProperty("Homepagetext")));
+			String actualText = homepageTextElement.getText();
+			System.out.println("Homepage text: " + actualText);
+
+			Assert.assertTrue(homepageTextElement.isDisplayed(), "Homepage text is not displayed after OTP refresh.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 
-		System.out.println("Is Gender_Backbutton displayed? " + isButtonDisplayed);
-		Assert.assertFalse(isButtonDisplayed, "After refreshing the page, Gender_Backbutton should not be displayed.");
+	}
+
+	@Test(priority = 8, enabled = false, retryAnalyzer = Retry.class)
+	public void verify_Mobile01_OTP() throws Exception {
+		try {
+
+			TOP_Banner();
+
+			driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+
+			// Generate and use random mobile number
+			String randomMobileNumber = randomMobileNumber();
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
+
+			Thread.sleep(1000);
+
+			driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+
+			boolean otpSubmitted = false;
+			int attempts = 0;
+			int maxAttempts = 5;
+
+			while (!otpSubmitted && attempts < maxAttempts) {
+				String otp = generateRandomOTP();
+				enterOTP(otp);
+
+				driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+				Thread.sleep(500);
+
+				if (isHomePageTextDisplayed()) {
+					otpSubmitted = true;
+					System.out.println("OTP submission successful.");
+				} else {
+					clearOTPFields();
+					attempts++;
+					System.out.println("OTP submission failed. Retrying... Attempt " + attempts);
+				}
+			}
+
+			if (!otpSubmitted) {
+				Assert.fail("OTP submission failed after " + maxAttempts + " attempts.");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+// On-Boarding.
+
+	@Test(priority = 9, enabled = true, retryAnalyzer = Retry.class)
+	public void completeOnboardingFlow() throws Exception {
+
+		TOP_Banner();
+
+		driver.findElement(By.xpath(prop.getProperty("Login"))).click();
+		String mobileNumber = randomMobileNumber();
+		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(mobileNumber);
+		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+
+		// Enter OTP
+		String otp = "777777";
+		enterOTP(otp);
+		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+		Thread.sleep(2500);
+
+		// Select Gender
+		driver.findElement(By.xpath(prop.getProperty("Click_Gender"))).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath(prop.getProperty("Male"))).click();
+		Thread.sleep(2000);
+		driver.navigate().refresh();
+		Thread.sleep(3000);
+
+		// Select Year of Birth
+		driver.findElement(By.xpath(prop.getProperty("Click_Gender"))).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath(prop.getProperty("2002"))).click();
+		Thread.sleep(2000);
+
+		// Select Location
+		driver.findElement(By.xpath(prop.getProperty("Click_Gender"))).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath(prop.getProperty("Adilabad1"))).click();
+		Thread.sleep(3000);
+
+		// Select Onboarding Coupons
+		driver.findElement(By.xpath(prop.getProperty("Coupon_1"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Coupon_2"))).click();
+		Thread.sleep(3000);
+
+		// Collect Onboarding Coupons
+		driver.findElement(By.xpath(prop.getProperty("Collect_Onboarding_coupons"))).click();
+		Thread.sleep(1000);
+
+		Boolean coupons = driver.findElement(By.xpath(prop.getProperty("On_boarding_reward_sucess_coupons")))
+				.isDisplayed();
+		if (coupons) {
+			System.out.println("coupons are displayed.");
+		} else {
+			System.out.println("couposn are not displayed.");
+		}
+
+		// Click to earn more rewards
+		driver.findElement(By.xpath(prop.getProperty("Earn_more_rewards!"))).click();
+		Thread.sleep(1000);
+
+		WebElement homePageTextElement = driver.findElement(By.xpath(prop.getProperty("Homepagetext")));
+		Assert.assertTrue(homePageTextElement.isDisplayed(), "Homepage text is not displayed");
+		System.out.println("Homepage text: " + homePageTextElement.getText());
 	}
 
 	@Test(priority = 10, enabled = true, retryAnalyzer = Retry.class)
-	public void Coupon_validationmessage() throws Exception {
+	public void completeOnboardingFlow1() throws Exception {
 
-		driver.findElement(By.xpath(prop.getProperty("Signup"))).click();
-		String randomMobileNumber = Random_MobileNumber();
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber"))).sendKeys(randomMobileNumber);
-		driver.findElement(By.xpath(prop.getProperty("Mobilenumber_Continue"))).click();
+		TOP_Banner();
 
-		String Otp = "2020";
-		enterOTP(Otp);
+		Login_New_number();
 
-		driver.findElement(By.xpath(prop.getProperty("OTP_Continue"))).click();
+		driver.findElement(By.xpath(prop.getProperty("survey_headings"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Survey_Preview_start_survey"))).click();
 
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen")));
-		driver.findElement(By.xpath(prop.getProperty("DIDFirst_screen_Next"))).click();
+		// Find all answer options dynamically
+		List<WebElement> answerOptions = driver.findElements(By.xpath(prop.getProperty("survey_answer_options_1")));
 
-		driver.findElement(By.xpath(prop.getProperty("Referral_Next"))).click();
-		driver.findElement(By.xpath(prop.getProperty("DOB"))).click();
-		Thread.sleep(2000);
-		WebElement option2000 = driver
-				.findElement(By.xpath("//div[@class='dropdown-option' and contains(text(), '1985')]"));
-		option2000.click();
-		driver.findElement(By.xpath(prop.getProperty("DOB_Next"))).click();
-		Thread.sleep(2000);
-
-		driver.findElement(By.xpath(prop.getProperty("Male"))).click();
-
-		driver.findElement(By.xpath(prop.getProperty("Gender_Next"))).click();
-		driver.findElement(By.xpath(prop.getProperty("Location"))).click();
-		WebElement dropdown = driver.findElement(By.xpath(prop.getProperty("Location")));
-		WebElement optionHyderabad = dropdown.findElement(By.xpath("//li[contains(text(), 'Hyderabad')]"));
-		optionHyderabad.click();
-
-		Thread.sleep(3000);
-		driver.findElement(By.xpath(prop.getProperty("Location_Next"))).click();
-
-		Thread.sleep(4000);
-
-		int numberofclicks = 5;
-		for (int i = 0; i < numberofclicks; i++) {
-			Thread.sleep(1000);
-			driver.findElement(By.xpath(prop.getProperty("Goforthecoupon"))).click();
+		// Iterate through all options and click them
+		for (WebElement option : answerOptions) {
+			option.click();
 		}
-
-		WebElement validationmessage = driver
-				.findElement(By.xpath(prop.getProperty("Onboarding_coupon_validation_message")));
-		String actualelement = validationmessage.getText();
-		String exceptedelement = "Please select 2 coupons to continue";
-		Assert.assertEquals(actualelement, exceptedelement, "both should bee same");
-		Thread.sleep(2000);
 	}
-	
-	
 
-	
 }

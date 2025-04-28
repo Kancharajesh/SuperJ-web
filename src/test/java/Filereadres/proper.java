@@ -15,10 +15,15 @@ public class proper {
 		Properties p = new Properties();
 		p.load(fr);
 
-//		FileReader pr = new FileReader(
-//				"C:\\Users\\Rajes\\eclipse-workspace\\insightengine.in\\src\\test\\java\\Filereadres\\insights");
-//		Properties f = new Properties();
-//		f.load(pr);
+		FileReader pr = new FileReader(
+				"C:\\Users\\Rajes\\eclipse-workspace\\superj-web\\src\\test\\java\\Filereadres\\IRCTC");
+		Properties f = new Properties();
+		f.load(pr);
+		
+		FileReader sr = new FileReader(
+				"C:\\Users\\Rajes\\eclipse-workspace\\superj-web\\src\\test\\java\\Filereadres\\Survey types");
+		Properties s = new Properties();
+		s.load(sr);
 
 	}
 

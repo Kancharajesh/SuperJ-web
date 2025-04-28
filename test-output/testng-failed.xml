@@ -3,16 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Testcases.SignUp">
+      <class name="Testcases.SuperJ_Login">
         <methods>
-          <include name="MobileNumber_input_clear"/>
+          <include name="sendTestResultsEmail"/>
           <include name="setupExtentReports"/>
           <include name="closeBrowser"/>
           <include name="tearDownExtentReports"/>
           <include name="setup"/>
-          <include name="Selected_value"/>
         </methods>
-      </class> <!-- Testcases.SignUp -->
+      </class> <!-- Testcases.SuperJ_Login -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
