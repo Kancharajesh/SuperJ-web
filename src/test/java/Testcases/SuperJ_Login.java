@@ -470,7 +470,7 @@ public class SuperJ_Login extends Basetest {
 		        }
 
 		        System.out.println("Finished Question " + questionIndex++);
-		        System.out.println("Finished " + questionIndex++);
+//		        System.out.println("Finished " + questionIndex++);
 		    }
 
 		    // Final assertions - switch to tab 0 and confirm survey is marked as completed
