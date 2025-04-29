@@ -65,6 +65,16 @@ public class Basetest<retrieveEmailFromMailosaur> {
 	        survey.load(sr);
 		}
 		
+		if (driver == null) {
+	        FileReader fr = new FileReader("C:\\Users\\Rajes\\eclipse-workspace\\superj-web\\src\\test\\java\\Filereadres\\DataFile");
+	        prop.load(fr);
+
+	        FileReader pr = new FileReader("C:\\Users\\Rajes\\eclipse-workspace\\superj-web\\src\\test\\java\\Filereadres\\IRCTC");
+	        insight.load(pr);
+
+	        FileReader Sr = new FileReader("C:\\Users\\Rajes\\eclipse-workspace\\superj-web\\src\\test\\java\\Filereadres\\Survey types");
+	        survey.load(Sr);
+		
 		
 
 		if (prop.getProperty("browser").equalsIgnoreCase("chrome")) {
