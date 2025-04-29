@@ -90,6 +90,7 @@ public class Basetest<retrieveEmailFromMailosaur> {
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		driver.get(prop.getProperty("SuperJ_URL"));
 	}
+	}
 
 	@AfterMethod
 	public void closeBrowser() {
