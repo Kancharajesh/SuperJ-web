@@ -18,41 +18,12 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import Baseclass.Basetest;
 
 public class Post_login_main extends Basetest {
-	
-	
-	public class SuperJTests {
-	    @Test(priority = 1)
-	    public void VerifytheHomepage() {  }
 
-	    @Test(priority = 2)
-	    public void SurveyCard() {  }
-	    
-	    @Test(priority = 3)
-	    public void Wallet_cahout() {  }
-	    
-	    @Test(priority = 4)
-	    public void Check_transaction_history() {  }
-	    
-	    @Test(priority = 5)
-	    public void Verify_Session_Expiry_After_Logout() {  }
-	    
-	    @Test(priority = 6)
-	    public void countVisibleSurveyCards() {  }
-	    
-	    @Test(priority = 7)
-	    public void Login_logout_withinvalid_OTP() {  }
-
-	    
-	}
-	
-
-	// Generate random mobile number 
+	// Generate random mobile number
 	public static String randomMobileNumber() {
 		Random generator = new Random();
 		return "99" + (generator.nextInt(900) + 100) + (generator.nextInt(9000000) + 1000000);
 	}
-	
-	
 
 	// Login function
 	private void superJ_login() throws InterruptedException {
