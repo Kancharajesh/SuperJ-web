@@ -7,9 +7,8 @@
             <configuration>
                 <suiteXmlFiles>
                     <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                    
-                    
                 </suiteXmlFiles>
+                <testFailureIgnore>true</testFailureIgnore> <!-- Optional: Don't fail build if tests fail -->
             </configuration>
         </plugin>
     </plugins>

@@ -3,10 +3,7 @@
 <suite name="TestSuite">
     <test name="SampleTest">
         <classes>
-            <!-- Ensure the full class path is specified, including the package -->
-            <class name="com.example.tests.Post_login_main"/>
-            
-            
+            <class name="Testcases.Post_login_main"/>
         </classes>
     </test>
 </suite>
