@@ -1,0 +1,25 @@
+IRCTCURl=https://www.air.irctc.co.in/
+IRCTCURl1=http://uat.irctc.co.in/
+browser=chrome
+
+MainBanner=/html/body/app-root/app-index/div[4]/div/div[2]/div/div/ul/li[1]
+TOPBanner=//a[@class='deskContent prt']
+
+IRCTCLogins=(//a[@class='nav-link selectable'])
+
+IRCTCLogin=(//li[@class='nav-item'])[2]
+GuestUserlogin=(//li[@class='nav-item'])[3]
+close_popup=(//button[@aria-label='Close'])[4]
+
+	// IRCTCuser Login.
+Email=(//input[@id='loginuseridUser'])
+Password=(//input[@name='password'])[1]
+Login=(//button[@type='submit'])[2]
+
+ //Guest user login
+Email=(//input[@name='emailLogin'])[1]
+mobilenumber=(//input[@name='mobileNo'])[1]
+Signin=(//button[@type='submit'])[3]
+
+
+IRCTC_Login_button=(//li[@class='nav-item'])[2]

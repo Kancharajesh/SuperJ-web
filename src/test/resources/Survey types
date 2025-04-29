@@ -1,0 +1,21 @@
+
+
+{
+    {
+        Preview_StartSurvey: "(//button[@class='preview_startSurveyButton__oAeLD'])",
+        NextButton: "(//button[@class='clickable-effect'])",
+        DownArrow: "(//button[@class='SurveyScreenDesktop_imgbutton2__g4iyf clickable-effect'])",
+        UpArrow: "(//button[@class='SurveyScreenDesktop_imgbutton1__hYLwW'])"
+    },
+    {
+        EarnMoreReward: "(//div[@class='SurveyRewardSuccess_bottomSection__sZhC4'])",
+        GoToMyWallet: "Go to my wallet"
+    },
+    {
+        MCQ_SingleSelection: "//div[@class='McqComponent_mcqBox__9GpN3']",
+        MCQ_MultipleSelection: "(//div[@class='McqComponent_mcqBox__9GpN3'])[2]"
+    },
+    StartSurvey=(//div[@class='SurveyCard_cardBody__mV4B8'])
+    
+    
+}

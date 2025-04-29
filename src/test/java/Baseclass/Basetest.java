@@ -2,6 +2,7 @@ package Baseclass;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -54,18 +55,14 @@ public class Basetest<retrieveEmailFromMailosaur> {
 	@BeforeMethod
 	public void setup() throws IOException {
 		if (driver == null) {
-			FileReader fr = new FileReader(
-					"C:\\Users\\Rajes\\eclipse-workspace\\superj-web\\src\\test\\java\\Filereadres\\DataFile");
-			prop.load(fr);
+	        InputStream fr = getClass().getClassLoader().getResourceAsStream("Filereadres/DataFile");
+	        prop.load(fr);
 
-			FileReader pr = new FileReader(
-					"C:\\Users\\Rajes\\eclipse-workspace\\superj-web\\src\\test\\java\\Filereadres\\IRCTC");
-			insight.load(pr);
-		
-		
-		FileReader Sr = new FileReader(
-				"C:\\Users\\Rajes\\eclipse-workspace\\superj-web\\src\\test\\java\\Filereadres\\Survey types");
-			survey.load(Sr);
+	        InputStream pr = getClass().getClassLoader().getResourceAsStream("Filereadres/IRCTC");
+	        insight.load(pr);
+
+	        InputStream sr = getClass().getClassLoader().getResourceAsStream("Filereadres/Survey types");
+	        survey.load(sr);
 		}
 		
 		
