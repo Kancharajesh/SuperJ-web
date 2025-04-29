@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite1">
-  <test name="Test1">
-    <classes>
-      <class name="Testcases.Post_login_main"/>
-    </classes>
-  </test>
+<suite name="MySuite">
+    <test name="MyTest">
+        <classes>
+            <class name="Testcases.VerifytheHomepage"/>
+            <class name="Testcases.SurveyCard"/>
+            <class name="Testcases.Wallet_cahout"/>
+            <class name="Testcases.Check_transaction_history"/>
+            <class name="Testcases.Verify_Session_Expiry_After_Logout"/>
+            <class name="Testcases.countVisibleSurveyCards"/>
+            <class name="Testcases.Login_logout_withinvalid_OTP"/>
+        </classes>
+    </test>
 </suite>

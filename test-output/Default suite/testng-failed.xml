@@ -3,15 +3,31 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Testcases.SuperJ_Login">
+      <class name="Testcases.Post_login_main">
         <methods>
-          <include name="sendTestResultsEmail"/>
+          <include name="Login_logout_withinvalid_OTP"/>
+          <include name="OTPFieldAutoFocusJump"/>
           <include name="setupExtentReports"/>
-          <include name="closeBrowser"/>
           <include name="tearDownExtentReports"/>
+          <include name="OTPFieldAcceptsOnlyDigits"/>
           <include name="setup"/>
+          <include name="Verify_Session_Expiry_After_Logout"/>
+          <include name="Wallet_cahout"/>
+          <include name="closeBrowser"/>
+          <include name="LogoutAndRefreshTest"/>
+          <include name="countVisibleSurveyCards"/>
+          <include name="AccessProtectedRoutesWithoutLogin"/>
+          <include name="open_multipleTabs"/>
+          <include name="SurveyScrollValidation"/>
+          <include name="SubmitSurveyFromMultipleTabs"/>
+          <include name="SurveyCard"/>
+          <include name="ParallelSurveyClicksFromMultipleTabs"/>
+          <include name="MultipleSurveysParallel"/>
+          <include name="Resend_"/>
+          <include name="Check_transaction_history"/>
+          <include name="ReloadSurveyMidway"/>
         </methods>
-      </class> <!-- Testcases.SuperJ_Login -->
+      </class> <!-- Testcases.Post_login_main -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
