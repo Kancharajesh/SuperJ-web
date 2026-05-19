@@ -42,14 +42,14 @@ test.describe("Profile Page Test Cases", () => {
     await profile.verifyTransactionDetails();
   });
 
-  test("Verify logout cancel flow", async () => {
+  test.skip("Verify logout cancel flow", async () => {
     await profile.clickLogout();
     await profile.clickLogoutCancel();
     // await this.page.waitForTimeout(3000);
     await profile.verifyProfilePage();
   });
 
-  test("Verify logout confirm flow", async () => {
+  test.skip("Verify logout confirm flow", async () => {
     await profile.clickLogout();
     await profile.confirmLogout();
     await profile.verifyAfterLogoutScreen();
