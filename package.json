@@ -1,0 +1,16 @@
+{
+  "name": "superj-playwright-tests",
+  "version": "1.0.0",
+  "description": "Playwright test cases for SuperJ mobile-web and desktop",
+  "scripts": {
+    "test": "playwright test",
+    "test:desktop": "playwright test --project=desktop-chrome",
+    "test:mobile": "playwright test --project=mobile-chrome",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "dotenv": "^17.2.3"
+  }
+}
