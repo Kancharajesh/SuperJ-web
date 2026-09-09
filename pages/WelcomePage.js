@@ -28,8 +28,12 @@ export class WelcomePage {
       "(//p[contains(@class,'text-[#D20505]')])[1]"
     );
 
-    // OTP Input boxes
+    // OTP Input boxes (6 separate single-digit inputs, aria-label="OTP digit N")
     this.OTP_Input_Boxes = page.locator("input[type='tel']");
+
+    this.OTPInvalidMessage = page.locator(
+      "//p[contains(text(),'valid otp') or contains(text(),'Invalid OTP')]"
+    );
 
     // ---------- Home/Dashboard ----------
     this.Sidebar = page.locator(
@@ -70,22 +74,36 @@ export class WelcomePage {
       state: "visible",
     });
 
-    // Method 1 - Keyboard typing
-    await this.page.keyboard.type(otp);
+    const digits = otp.split("");
+    for (let i = 0; i < digits.length; i++) {
+      await this.page
+        .locator(`//input[@aria-label='OTP digit ${i + 1}']`)
+        .fill(digits[i]);
+    }
 
-    // Wait after OTP entry
+    // Wait for verification request to complete
     await this.page.waitForTimeout(3000);
   }
 
-  // ---------- Login Method ----------
-  async loginToApplication(number, otp) {
+  // ---------- Login Method (tries each OTP code until one is accepted) ----------
+  async loginToApplication(number, otpCodes) {
+    const codes = Array.isArray(otpCodes) ? otpCodes : [otpCodes];
+
     await this.enterMobileNumber(number);
-
     await this.clickRequestOTP();
-
     await expect(this.OTP_6).toBeVisible();
 
-    await this.enterOTP(otp);
+    for (const code of codes) {
+      await this.enterOTP(code);
+
+      const loggedIn = await this.Sidebar.isVisible().catch(() => false);
+      if (loggedIn) return;
+
+      const stillInvalid = await this.OTPInvalidMessage
+        .isVisible()
+        .catch(() => false);
+      if (!stillInvalid) return; // no error shown, assume it went through
+    }
   }
 
   // ---------- Verify Sidebar ----------

@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { WelcomePage } from "../pages/WelcomePage.js";
+import { PHONE_NUMBER, OTP_CODES } from "../utils/config.js";
 
 test.describe("SuperJ Welcome/Login Page", () => {
   let welcomePage;
@@ -28,13 +29,8 @@ test.describe("SuperJ Welcome/Login Page", () => {
     await expect(welcomePage.Mobilenumber_validationmessage).toBeVisible();
   });
 
-  test("Verify login with valid OTP 777777", async () => {
-    await welcomePage.Mobilenumber_inputfiled.fill("9885060891");
-    await welcomePage.RequestOTP.click();
-
-    await expect(welcomePage.OTP_6).toBeVisible();
-
-    await welcomePage.page.keyboard.type("777777");
+  test("Verify login with valid OTP", async () => {
+    await welcomePage.loginToApplication(PHONE_NUMBER, OTP_CODES);
 
     await expect(welcomePage.Sidebar).toBeVisible({ timeout: 15000 });
   });

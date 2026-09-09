@@ -1,5 +1,6 @@
 import { test } from "@playwright/test";
 import { Mobile_login } from "../pages/Mobile_login.js";
+import { PHONE_NUMBER, OTP_CODES } from "../utils/config.js";
 
 test.describe("Mobile Login Test Cases", () => {
 
@@ -19,23 +20,13 @@ test.describe("Mobile Login Test Cases", () => {
     await mobileLogin.launchApplication();
 
     // Login Before Every Test
-    await mobileLogin.login(
-      "9885060891",
-      "711711"
-    );
-
-    // Verify Login
-    // await mobileLogin.surveyVisible();
-
-    // await mobileLogin.surveyVisible();
-    // await this.page.waitForTimeout(3000);
-
+    await mobileLogin.login(PHONE_NUMBER, OTP_CODES);
   });
 
   test("Verify user successfully logged in mobile view",
     async () => {
 
-      // Already logged in from beforeEach
+      await mobileLogin.verifyUserLoggedIn();
 
   });
 

@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 
 import { WelcomePage } from "../pages/WelcomePage.js";
 import { Wallet } from "../pages/Wallet.js";
+import { PHONE_NUMBER, OTP_CODES } from "../utils/config.js";
 
 test.describe("Wallet Page Test Cases", () => {
 
@@ -15,10 +16,7 @@ test.describe("Wallet Page Test Cases", () => {
 
     await welcomePage.launchTheBrowser();
 
-    await welcomePage.loginToApplication(
-      "9885060891",
-      "777777"
-    );
+    await welcomePage.loginToApplication(PHONE_NUMBER, OTP_CODES);
 
     await welcomePage.verifyUserLoggedIn();
 
