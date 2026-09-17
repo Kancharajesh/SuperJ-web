@@ -1,4 +1,7 @@
+require("dotenv").config();
 const { defineConfig, devices } = require("@playwright/test");
+
+const BASE_URL = process.env.BASE_URL || "https://superj.app";
 
 module.exports = defineConfig({
   testDir: "./tests",
@@ -13,7 +16,12 @@ module.exports = defineConfig({
     : [["html", { outputFolder: "playwright-report", open: "never" }]],
 
   timeout: 60000,
-  workers: process.env.CI ? 2 : 2,
+  // All specs authenticate the same hardcoded test phone number
+  // (PHONE_NUMBER in .env). Running them concurrently races multiple
+  // OTP requests/verifications against that one number and superj.app's
+  // backend rejects the resulting overlap, so this suite must stay serial
+  // until tests are updated to use distinct numbers per worker.
+  workers: 1,
   retries: process.env.CI ? 1 : 0,
 
   expect: {
@@ -21,6 +29,7 @@ module.exports = defineConfig({
   },
 
   use: {
+    baseURL: BASE_URL,
     headless: true,
     trace: process.env.CI ? "retain-on-failure" : "off",
     screenshot: "only-on-failure",
@@ -31,14 +40,19 @@ module.exports = defineConfig({
 
   projects: [
     {
-      name: "chromium",
+      // superj.app serves a completely different funnel below its mobile
+      // breakpoint (a "Start Now" -> WhatsApp OTP flow, see Mobile_login.js)
+      // vs. the direct phone-input flow desktop uses (WelcomePage.js), so
+      // each spec is only valid against the project it was written for.
+      name: "desktop-chrome",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: ["**/mobile_*.spec.js"],
+      testMatch: ["**/*.spec.js"],
+      testIgnore: ["**/mobile-*.spec.js"],
     },
     {
-      name: "Mobile Chrome",
+      name: "mobile-chrome",
       use: { ...devices["Pixel 5"] },
-      testMatch: ["**/mobile_*.spec.js"],
+      testMatch: ["**/mobile-*.spec.js"],
     },
   ],
 });

@@ -1,13 +1,11 @@
-const { LoginPage, PHONE, OTP_CODES } = require('../pages/LoginPage');
+const { WelcomePage } = require("../pages/WelcomePage");
+const { PHONE_NUMBER, OTP_CODES } = require("./config");
 
 async function login(page) {
-  const loginPage = new LoginPage(page);
-  return loginPage.login(PHONE, OTP_CODES);
+  const welcomePage = new WelcomePage(page);
+  await welcomePage.launchTheBrowser();
+  await welcomePage.loginToApplication(PHONE_NUMBER, OTP_CODES);
+  return welcomePage;
 }
 
-async function openLogin(page) {
-  const loginPage = new LoginPage(page);
-  return loginPage.openLogin();
-}
-
-module.exports = { login, openLogin, PHONE, OTP_CODES };
+module.exports = { login, PHONE_NUMBER, OTP_CODES };

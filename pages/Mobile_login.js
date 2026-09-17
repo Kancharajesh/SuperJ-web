@@ -45,9 +45,10 @@ export class Mobile_login {
       "//input[@aria-label='Please enter OTP character 6']"
     );
 
-    // Invalid OTP Text
+    // Invalid OTP Text (site has shown both "Invalid OTP" and
+    // "Please enter a valid otp" copy for a rejected code)
     this.inValidOTPtext = page.locator(
-      "//p[contains(text(),'Invalid OTP')]"
+      "//p[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'invalid otp') or contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'valid otp')]"
     );
 
     // ---------- Dashboard ----------
@@ -104,7 +105,9 @@ export class Mobile_login {
     await this.OTP_6.fill(digits[5]);
   }
 
-  async login(number, otp) {
+  async login(number, otpCodes) {
+
+    const codes = Array.isArray(otpCodes) ? otpCodes : [otpCodes];
 
     await this.clickStartNow();
 
@@ -112,15 +115,24 @@ export class Mobile_login {
 
     await this.clickContinue();
 
-    await this.enterOTP(otp);
+    for (const code of codes) {
+      await this.enterOTP(code);
+      await this.page.waitForTimeout(2000);
+
+      const stillInvalid = await this.inValidOTPtext
+        .isVisible()
+        .catch(() => false);
+      if (!stillInvalid) return;
+    }
   }
 
-//   async verifyUserLoggedIn() {
+  async verifyUserLoggedIn() {
 
-//     await expect(this.AppDownloadBanner).toBeVisible({
-//       timeout: 20000,
-//     });
-//   }
+    // CSS-module class names (e.g. "Sidebar-module__WZVnLW__...") are
+    // build-hash-specific and reshuffle on every deploy, so the URL is the
+    // stable signal that the OTP was accepted and the app entered Home.
+    await this.page.waitForURL(/\/Home/, { timeout: 20000 });
+  }
 
   async verifyInvalidOTPMessage() {
 

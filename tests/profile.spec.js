@@ -1,6 +1,7 @@
 import { test } from "@playwright/test";
 import { WelcomePage } from "../pages/WelcomePage";
 import { Profile } from "../pages/Profile";
+import { PHONE_NUMBER, OTP_CODES } from "../utils/config.js";
 
 test.describe("Profile Page Test Cases", () => {
   let welcomePage;
@@ -11,7 +12,7 @@ test.describe("Profile Page Test Cases", () => {
     profile = new Profile(page);
 
     await welcomePage.launchTheBrowser();
-    await welcomePage.loginToApplication("9885060891", "777777");
+    await welcomePage.loginToApplication(PHONE_NUMBER, OTP_CODES);
     await welcomePage.verifyUserLoggedIn();
 
     await profile.openProfilePage();
