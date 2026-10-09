@@ -4,17 +4,15 @@ export class Wallet {
   constructor(page) {
     this.page = page;
 
-    this.wallet_button = page.locator(
-      "(//li[contains(@class,'Sidebar-module')])[2]"
-    );
+    // CSS-module class names change on every deploy; use visible text.
+    this.wallet_button = page.getByRole("list")
+      .filter({ has: page.getByText("Home", { exact: true }) })
+      .first().getByText("Wallet", { exact: true });
 
-    this.cash_balance = page.locator(
-      "(//div[contains(@class,'CashBalance-module')])[1]"
-    );
+    this.cash_balance = page.getByText("Wallet balance", { exact: true });
 
-    this.coupons = page.locator(
-      "(//div[contains(@class,'RecentCoupons-module')])[1]"
-    );
+    // The old "Recent coupons" section was replaced by "My Gift Cards".
+    this.coupons = page.getByText("My Gift Cards", { exact: true });
   }
 
   async openWallet() {

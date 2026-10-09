@@ -14,6 +14,11 @@ set -uo pipefail
 
 export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
+# Claude instead of the free Gemini tier: the free tier's 5 req/min cap was
+# getting hit mid-run (summary step alone used most of it), failing the
+# explorer step before it got started. See agent/README.md.
+export AI_PROVIDER=claude
+
 REPO_ROOT="/Users/rajesh/SuperJ-web"
 AGENT_DIR="$REPO_ROOT/agent"
 LOG_DIR="$AGENT_DIR/run-logs"

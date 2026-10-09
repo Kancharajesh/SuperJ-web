@@ -1,18 +1,13 @@
 import { expect } from "@playwright/test";
+import { tap } from "../utils/ui.js";
 
 export class Mobile_profile {
   constructor(page) {
     this.page = page;
 
-    // Top bar avatar: two <img> live inside SuperjTopBar-module (SuperJ logo,
-    // then the profile icon) — index 1 is the profile icon (alt="profile icon").
-    this.profileIcon = page.locator(
-      "//div[contains(@class,'SuperjTopBar-module')]//img"
-    ).nth(1);
+    this.profileIcon = page.getByAltText("profile icon");
 
-    this.profilePageHeader = page.locator(
-      "//p[normalize-space()='Profile Page'] | //*[normalize-space(text())='Profile Page']"
-    ).first();
+    this.profilePageHeader = page.getByText("Profile", { exact: true }).filter({ visible: true }).first();
 
     this.didBanner = page.locator("text=This is your DID").first();
     this.referButton = page.locator("text=Refer a friend").first();
@@ -26,13 +21,12 @@ export class Mobile_profile {
     );
     this.logoutCancel = page.locator("//button[normalize-space()='Cancel']");
 
-    this.transactionHistoryHeader = page.locator(
-      "text=Transaction History"
-    ).first();
+    // History page header is "History" with Transactions/Verifications tabs.
+    this.transactionHistoryHeader = page.getByRole("button", { name: "Transactions" });
   }
 
   async openProfilePage() {
-    await this.profileIcon.click();
+    await tap(this.profileIcon);
     await this.page.waitForURL(/\/profile/, { timeout: 15000 });
   }
 
@@ -53,7 +47,7 @@ export class Mobile_profile {
   }
 
   async clickHistory() {
-    await this.historyButton.click();
+    await tap(this.historyButton);
     await this.page.waitForURL(/\/transaction-history/, { timeout: 15000 });
   }
 
@@ -62,14 +56,14 @@ export class Mobile_profile {
   }
 
   async clickLogout() {
-    await this.logoutButton.click();
+    await tap(this.logoutButton);
   }
 
   async cancelLogout() {
-    await this.logoutCancel.click();
+    await tap(this.logoutCancel);
   }
 
   async confirmLogout() {
-    await this.logoutConfirmYes.click();
+    await tap(this.logoutConfirmYes);
   }
 }

@@ -1,4 +1,5 @@
 import { expect } from "@playwright/test";
+import { tap } from "../utils/ui.js";
 
 export class Mobile_login {
 
@@ -21,29 +22,9 @@ export class Mobile_login {
     );
 
     // ---------- OTP Screen ----------
-    this.OTP_1 = page.locator(
-      "//input[@aria-label='Please enter OTP character 1']"
-    );
-
-    this.OTP_2 = page.locator(
-      "//input[@aria-label='Please enter OTP character 2']"
-    );
-
-    this.OTP_3 = page.locator(
-      "//input[@aria-label='Please enter OTP character 3']"
-    );
-
-    this.OTP_4 = page.locator(
-      "//input[@aria-label='Please enter OTP character 4']"
-    );
-
-    this.OTP_5 = page.locator(
-      "//input[@aria-label='Please enter OTP character 5']"
-    );
-
-    this.OTP_6 = page.locator(
-      "//input[@aria-label='Please enter OTP character 6']"
-    );
+    // One 6-character field (the code arrives on WhatsApp); this replaced
+    // the earlier six single-digit boxes.
+    this.otpInput = page.getByLabel("Enter the 6 digit code");
 
     // Invalid OTP Text (site has shown both "Invalid OTP" and
     // "Please enter a valid otp" copy for a rejected code)
@@ -76,7 +57,7 @@ export class Mobile_login {
       state: "visible",
     });
 
-    await this.startnow.click();
+    await tap(this.startnow);
   }
 
   async enterMobileNumber(number) {
@@ -90,19 +71,12 @@ export class Mobile_login {
 
   async clickContinue() {
 
-    await this.Mobilecontinueclick.click();
+    await tap(this.Mobilecontinueclick);
   }
 
   async enterOTP(otp) {
 
-    const digits = otp.split("");
-
-    await this.OTP_1.fill(digits[0]);
-    await this.OTP_2.fill(digits[1]);
-    await this.OTP_3.fill(digits[2]);
-    await this.OTP_4.fill(digits[3]);
-    await this.OTP_5.fill(digits[4]);
-    await this.OTP_6.fill(digits[5]);
+    await this.otpInput.fill(otp);
   }
 
   async login(number, otpCodes) {

@@ -21,9 +21,7 @@ export class Profile {
       "(//button[normalize-space()='View All'])[1]"
     );
 
-    this.transaction_details = page.locator(
-      "(//div[contains(@class,'Cash-module')])[1]"
-    );
+    this.transaction_details = page.getByText("Transaction History", { exact: true });
 
     this.logout_button = page.locator(
       "(//button[normalize-space()='Logout'])[1]"
@@ -82,6 +80,7 @@ export class Profile {
   }
 
   async verifyTransactionDetails() {
+    await this.page.waitForURL(/\/transaction-history/, { timeout: 15000 });
     await this.verifyVisible(this.transaction_details);
   }
 

@@ -4,13 +4,69 @@
   "description": "Playwright test cases for SuperJ mobile-web and desktop",
   "scripts": {
     "test": "playwright test",
+    "test:robot": "npm --prefix agent run test:robot --",
     "test:desktop": "playwright test --project=desktop-chrome",
     "test:mobile": "playwright test --project=mobile-chrome",
+    "test:site": "playwright test --project=desktop-site --project=mobile-site",
+    "test:api-flow": "playwright test tests/api-flow-mapping.spec.js",
+    "test:api-flow:headed": "playwright test tests/api-flow-mapping.spec.js --headed",
+    "test:schedule": "node tests/scheduled-daily-tests.js",
+    "test:schedule:9am": "node tests/scheduled-daily-tests.js -- 09:00",
+    "test:schedule:6pm": "node tests/scheduled-daily-tests.js -- 18:00",
+    "test:complete-flow": "playwright test tests/complete-flow-test.spec.js",
+    "test:complete-flow:headed": "playwright test tests/complete-flow-test.spec.js --headed",
+    "test:complete-flow-api": "playwright test tests/complete-flow-api.spec.js",
+    "test:complete-flow-api:headed": "playwright test tests/complete-flow-api.spec.js --headed",
+    "test:simple-login": "playwright test tests/simple-login-test.spec.js",
+    "test:simple-login:headed": "playwright test tests/simple-login-test.spec.js --headed",
+    "test:login-only": "playwright test tests/login-only-test.spec.js",
+    "test:login-only:headed": "playwright test tests/login-only-test.spec.js --headed",
+    "test:auto-otp": "playwright test tests/automated-flow-with-otp.spec.js",
+    "test:auto-otp:headed": "playwright test tests/automated-flow-with-otp.spec.js --headed",
+    "test:auto-otp:debug": "playwright test tests/automated-flow-with-otp.spec.js --debug",
+    "test:verify-phone": "playwright test tests/verify-phone-setup.spec.js",
+    "whatsapp:setup": "node utils/whatsapp-otp-reader.js",
+    "auth": "playwright test --project=setup",
+    "codegen": "playwright codegen --load-storage=playwright/.auth/desktop.json https://superj.app/Home",
+    "codegen:mobile": "playwright codegen --device=\"Pixel 5\" --load-storage=playwright/.auth/mobile.json https://superj.app/Home",
+    "codegen:login": "playwright codegen https://superj.app",
     "test:headed": "playwright test --headed",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "test:allure": "playwright test --reporter=line,allure-playwright",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report"
   },
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
-    "dotenv": "^17.2.3"
-  }
+    "@playwright/test": "^1.63.0",
+    "allure-commandline": "^2.46.1",
+    "allure-playwright": "^3.12.2",
+    "dotenv": "^17.2.3",
+    "playwright": "^1.63.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.34.7"
+  },
+  "main": "playwright.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "allure-js-commons": "^3.12.2",
+    "charenc": "^0.0.2",
+    "crypt": "^0.0.2",
+    "is-buffer": "^1.1.6",
+    "md5": "^2.3.0",
+    "playwright-core": "^1.63.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kancharajesh/SuperJ-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kancharajesh/SuperJ-web/issues"
+  },
+  "homepage": "https://github.com/Kancharajesh/SuperJ-web#readme"
 }

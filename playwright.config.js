@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { defineConfig, devices } = require("@playwright/test");
+const { DESKTOP_STATE, MOBILE_STATE } = require("./utils/ui.js");
 
 const BASE_URL = process.env.BASE_URL || "https://superj.app";
 
@@ -47,12 +48,31 @@ module.exports = defineConfig({
       name: "desktop-chrome",
       use: { ...devices["Desktop Chrome"] },
       testMatch: ["**/*.spec.js"],
-      testIgnore: ["**/mobile-*.spec.js"],
+      testIgnore: ["**/mobile-*.spec.js", "site/**"],
     },
     {
       name: "mobile-chrome",
       use: { ...devices["Pixel 5"] },
       testMatch: ["**/mobile-*.spec.js"],
+      testIgnore: ["site/**"],
+    },
+    // Full-site coverage (tests/site, catalogued in TEST_CASES.md): logs in
+    // once in "setup" and reuses the saved session.
+    { name: "setup", testMatch: "setup/auth.setup.js" },
+    {
+      name: "desktop-site",
+      use: { ...devices["Desktop Chrome"], storageState: DESKTOP_STATE },
+      // seed.spec.ts is the logged-in starting point for the Playwright test
+      // agents in .claude/agents (npx playwright init-agents).
+      testMatch: ["site/**/*.spec.js", "seed.spec.ts"],
+      testIgnore: "site/**/mobile-*.spec.js",
+      dependencies: ["setup"],
+    },
+    {
+      name: "mobile-site",
+      use: { ...devices["Pixel 5"], storageState: MOBILE_STATE },
+      testMatch: "site/**/mobile-*.spec.js",
+      dependencies: ["setup"],
     },
   ],
 });

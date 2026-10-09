@@ -36,9 +36,9 @@ export class WelcomePage {
     );
 
     // ---------- Home/Dashboard ----------
-    this.Sidebar = page.locator(
-      "(//div[contains(@class,'Sidebar')])[1]"
-    );
+    this.Sidebar = page.getByRole("list").filter({
+      has: page.getByText("Home", { exact: true }),
+    }).first();
   }
 
   // ---------- Launch Application ----------
